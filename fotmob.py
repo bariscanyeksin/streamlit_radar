@@ -879,11 +879,12 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         .row-widget.stDownloadButton button {
                             background-color: rgba(51, 51, 51, 0.17);
                             color: gray;  /* Text color */
-                            border: 1px solid gray;  /* Thin gray border */
+                            border: 0.5px solid gray;  /* Thin gray border */
                             transition: background-color 0.5s ease;
                         }
                         .row-widget.stDownloadButton button:hover {
-                            background-color: rgba(51, 51, 51, 0.50);
+                            background-color: rgba(51, 51, 51, 0.65);
+                            border: 1px solid gray;  /* Thin gray border */
                         }
                     </style>
                     """,
