@@ -877,6 +877,15 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         text-align: center;
                         
                     }
+                    .row-widget.stDownloadButton button {
+                        background-color: #333333;  /* Normal button color */
+                        color: white;  /* Text color */
+                        border: none;  /* Remove border */
+                        transition: background-color 0.3s ease;
+                    }
+                    .row-widget.stDownloadButton button:hover {
+                        background-color: gray;  /* Hover color */
+                    }
                     </style>
                     """,
                     unsafe_allow_html=True
