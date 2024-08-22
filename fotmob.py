@@ -13,14 +13,19 @@ import streamlit as st
 from datetime import datetime
 from urllib.error import HTTPError
 import base64
+import os
 
 plt.rcParams['figure.dpi'] = 300
 
-# Poppins fontunu yükleme
-font_path = 'fonts\\Poppins-Regular.ttf'
-prop = fm.FontProperties(fname=font_path)
+# Current directory of the running script
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-bold_font_path = 'fonts\\Poppins-SemiBold.ttf'
+# Poppins font paths
+font_path = os.path.join(current_dir, 'fonts', 'Poppins-Regular.ttf')
+bold_font_path = os.path.join(current_dir, 'fonts', 'Poppins-SemiBold.ttf')
+
+# Load font properties
+prop = fm.FontProperties(fname=font_path)
 bold_prop = fm.FontProperties(fname=bold_font_path)
 
 # SSL sertifika doğrulamasını devre dışı bırakma
