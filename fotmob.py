@@ -526,7 +526,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
         
     if (radar_template == "Merkez Orta Saha"):
         stat_titles = ['Accurate passes', 'Pass accuracy', 'Accurate long balls', 'Long ball accuracy',
-                    'Tackles won', 'Interceptions', 'Recoveries', 'Duels won', 'Aerials won',
+                    'Tackles won', 'Interceptions', 'Recoveries', 'Duels won', 'Aerials won', 'Possession won final 3rd',
                     'Touches', 'Dribbles']
         
     if (radar_template == "Kanat - Ofansif Orta Saha"):
