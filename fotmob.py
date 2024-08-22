@@ -877,13 +877,13 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                             text-align: center;
                         }
                         .row-widget.stDownloadButton button {
-                            background-color: rgba(51, 51, 51, 0.17);  /* Normal button color */
+                            background-color: rgba(51, 51, 51, 0.17);
                             color: gray;  /* Text color */
                             border: 1px solid gray;  /* Thin gray border */
                             transition: background-color 0.5s ease;
                         }
                         .row-widget.stDownloadButton button:hover {
-                            background-color: #333333;  /* Hover color */
+                            background-color: rgba(51, 51, 51, 0.50);
                         }
                     </style>
                     """,
