@@ -781,6 +781,20 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         else:  # Oyuncu sütunları
                             cell.set_width(0.15)
 
+                    # Belirgin çizgiyi eklemek için
+                    highlight_row = 4  # 1'den başlayarak row indexi
+                    highlight_color = 'black'
+                    highlight_linewidth = 2
+                    
+                    # Tablonun hücrelerine erişim
+                    cells = table.get_celld()
+                    
+                    # Belirgin çizgiyi ekle
+                    for col in range(len(table_data[0])):
+                        cells[(highlight_row, col)].visible_edges = "bottom"
+                        cells[(highlight_row, col)].set_edgecolor(highlight_color)
+                        cells[(highlight_row, col)].set_linewidth(highlight_linewidth)
+
                     # Başlık hücrelerinin arka plan rengini gri yapma ve diğer stil ayarları
                     for key, cell in table.get_celld().items():
                         if key[0] == 0:  # İlk satır (başlıklar)
