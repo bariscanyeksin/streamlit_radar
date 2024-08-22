@@ -871,21 +871,20 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 st.markdown(
                     """
                     <style>
-                    .row-widget.stDownloadButton {
-                        display: flex;
-                        justify-content: center;
-                        text-align: center;
-                        
-                    }
-                    .row-widget.stDownloadButton button {
-                        background-color: rgba(51, 51, 51, 0.17);  /* Normal button color */
-                        color: gray;  /* Text color */
-                        border: 1px;  /* Remove border */
-                        transition: background-color 0.5s ease;
-                    }
-                    .row-widget.stDownloadButton button:hover {
-                        background-color: #333333;  /* Hover color */
-                    }
+                        .row-widget.stDownloadButton {
+                            display: flex;
+                            justify-content: center;
+                            text-align: center;
+                        }
+                        .row-widget.stDownloadButton button {
+                            background-color: rgba(51, 51, 51, 0.17);  /* Normal button color */
+                            color: gray;  /* Text color */
+                            border: 1px solid gray;  /* Thin gray border */
+                            transition: background-color 0.5s ease;
+                        }
+                        .row-widget.stDownloadButton button:hover {
+                            background-color: #333333;  /* Hover color */
+                        }
                     </style>
                     """,
                     unsafe_allow_html=True
