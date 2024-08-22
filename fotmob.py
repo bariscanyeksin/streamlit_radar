@@ -186,7 +186,7 @@ translation_dict = {
     'Clean sheets': 'Gol Yemeden Bitirilen Maçlar',
     'Penalty goals saves': 'Penaltı Kurtarma',
     'Blocked scoring attempt': 'Gol Engelleme',
-    'Possession won final 3rd': '3. Bölgede Top Çalma',
+    'Possession won final 3rd': 'Rakip Alanda Top Çalma',
     'Fouls committed': 'Yapılan Faul',
     'Fouls won': 'Kazanılan Faul',
     'xG': 'Gol Beklentisi (xG)',
