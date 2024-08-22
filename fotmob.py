@@ -467,6 +467,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
     # Pozisyonları Türkçeye çeviren dict
     position_translation_dict = {
         "Goalkeeper": "Kaleci",
+        "Keeper": "Kaleci",
         "Right Back": "Sağ Bek",
         "Left Back": "Sol Bek",
         "Center Back": "Stoper",
