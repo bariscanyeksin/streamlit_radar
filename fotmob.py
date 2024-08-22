@@ -15,9 +15,13 @@ from urllib.error import HTTPError
 import base64
 import os
 
+st.set_page_config(
+    page_title="FotMob Radar",
+    initial_sidebar_state="expanded"
+)
+
 plt.rcParams['figure.dpi'] = 300
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 
 # Poppins fontunu yükleme
 font_path = os.path.join(current_dir, 'fonts', 'Poppins-Regular.ttf')
