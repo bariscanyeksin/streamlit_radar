@@ -894,11 +894,16 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 buf = io.BytesIO()
                 plot.savefig(buf, format="png", dpi = 300, bbox_inches = "tight")
                 buf.seek(0)
+
+                player1_name_clean = player1_name.replace(" ", "-")
+                player1_league_clean = player1_league.replace(" ", "-")
+                player2_name_clean = player2_name.replace(" ", "-")
+                player2_league_clean = player2_league.replace(" ", "-")
                 
                 st.download_button(
                     label="Grafiği İndir",
                     data=buf,
-                    file_name=player1_name + "-" + player1_season_name + "-" + player1_league + " vs " + player2_name + "-" + player2_season_name + "-" + player2_league + ".png",
+                    file_name=f"{player1_name_clean}-{player1_season_name}-{player1_league_clean}-vs-{player2_name_clean}-{player2_season_name}-{player2_league_clean}.png",
                     mime="image/png"
                 )                
         else:
