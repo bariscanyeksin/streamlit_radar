@@ -16,16 +16,14 @@ import base64
 import os
 
 plt.rcParams['figure.dpi'] = 300
-
-# Current directory of the running script
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Poppins font paths
-font_path = os.path.join(current_dir, 'fonts', 'Poppins-Regular.ttf')
-bold_font_path = os.path.join(current_dir, 'fonts', 'Poppins-SemiBold.ttf')
 
-# Load font properties
+# Poppins fontunu yükleme
+font_path = os.path.join(current_dir, 'fonts', 'Poppins-Regular.ttf')
 prop = fm.FontProperties(fname=font_path)
+
+bold_font_path = os.path.join(current_dir, 'fonts', 'Poppins-SemiBold.ttf')
 bold_prop = fm.FontProperties(fname=bold_font_path)
 
 # SSL sertifika doğrulamasını devre dışı bırakma
@@ -605,14 +603,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     player1_90s = 0.0
                     player2_90s = 0.0
 
-                    if player1_minute != None:
-                        player1_90s = round(float(player1_minute) / 90, 1)
-                        player2_90s = round(float(player2_minute) / 90, 1)
-
-                        table_columns = ['Sezon', 'Lig', 'Takım', 'Pozisyon', 'Yaş', 'Doğum Tarihi', 'Toplam Maç', 'İlk 11', 'Aldığı Dakika', '90s (Aldığı Dakika / 90)']
-                        table_player1_values = [player1_season_name, player1_league, player1_team, player1_primary_position_tr, player1_age, player1_birthday, player1_matches, player1_started_matches, player1_minute, player1_90s]
-                        table_player2_values = [player2_season_name, player2_league, player2_team, player2_primary_position_tr, player2_age, player2_birthday, player2_matches, player2_started_matches, player2_minute, player2_90s]
-                    else:
+                    if player1_primary_position == "Goalkeeper" or player1_primary_position == "Keeper" or player2_primary_position == "Goalkeeper" or player2_primary_position == "Keeper":
                         player1_minute = ""
                         player2_minute = ""
                         player1_90s = ""
@@ -622,6 +613,13 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         table_player1_values = [player1_season_name, player1_league, player1_team, player1_primary_position_tr, player1_age, player1_birthday, player1_matches, player1_started_matches]
                         table_player2_values = [player2_season_name, player2_league, player2_team, player2_primary_position_tr, player2_age, player2_birthday, player2_matches, player2_started_matches]
                     
+                    else:
+                        player1_90s = round(float(player1_minute) / 90, 1)
+                        player2_90s = round(float(player2_minute) / 90, 1)
+
+                        table_columns = ['Sezon', 'Lig', 'Takım', 'Pozisyon', 'Yaş', 'Doğum Tarihi', 'Toplam Maç', 'İlk 11', 'Aldığı Dakika', '90s (Aldığı Dakika / 90)']
+                        table_player1_values = [player1_season_name, player1_league, player1_team, player1_primary_position_tr, player1_age, player1_birthday, player1_matches, player1_started_matches, player1_minute, player1_90s]
+                        table_player2_values = [player2_season_name, player2_league, player2_team, player2_primary_position_tr, player2_age, player2_birthday, player2_matches, player2_started_matches, player2_minute, player2_90s]
                     
                     ######### RADAR #########
                     
@@ -821,7 +819,14 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                             else:
                                 cell.set_facecolor('#0e0e0e')
                                 cell.set_text_props(color='gray', fontproperties=prop)
-                            if key[0] > 6:
+
+                            row_key = 0
+                            if player1_primary_position == "Goalkeeper" or player1_primary_position == "Keeper" or player2_primary_position == "Goalkeeper" or player2_primary_position == "Keeper":
+                                row_key = 8
+                            else:
+                                row_key = 10
+
+                            if key[0] > row_key:
                                 try:
                                     value1 = float(table_data[key[0], 0])
                                     value2 = float(table_data[key[0], 1])
@@ -895,7 +900,6 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 buf = io.BytesIO()
                 plot.savefig(buf, format="png", dpi = 300, bbox_inches = "tight")
                 buf.seek(0)
-
                 player1_name_clean = player1_name.replace(" ", "-")
                 player1_league_clean = player1_league.replace(" ", "-")
                 player2_name_clean = player2_name.replace(" ", "-")
