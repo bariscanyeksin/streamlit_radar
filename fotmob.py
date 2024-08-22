@@ -552,7 +552,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
 
     elif player1_team_id != 0 and player2_team_id == 0:
         player1_team = get_team_name(player1_team_id)
-        player2_team = get_current_team_name+(player2_id)
+        player2_team = get_current_team_name(player2_id)
 
     elif player1_team_id != 0 and player1_team_id != 0:
         player1_team = get_team_name(player1_team_id)
