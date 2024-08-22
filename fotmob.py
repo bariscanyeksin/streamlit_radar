@@ -878,13 +878,13 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         
                     }
                     .row-widget.stDownloadButton button {
-                        background-color: #333333;  /* Normal button color */
+                        background-color: rgba(51, 51, 51, 0.17);  /* Normal button color */
                         color: white;  /* Text color */
                         border: none;  /* Remove border */
                         transition: background-color 0.3s ease;
                     }
                     .row-widget.stDownloadButton button:hover {
-                        background-color: gray;  /* Hover color */
+                        background-color: #808080;  /* Hover color */
                     }
                     </style>
                     """,
