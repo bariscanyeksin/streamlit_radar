@@ -845,6 +845,13 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                                 except ValueError:
                                     pass
 
+                    # Radar bilgilerini ax2'ye ekleme
+                    ax2.text(-0.35, 1.35, "İki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılan bu radar grafiğinde her eksen bir istatistiği\ntemsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.",
+                    ha='left', va='center', fontsize=7, fontproperties=prop, color=to_rgba('gray', alpha=0.5), transform=ax2.transAxes)
+                    
+                    ax2.text(-0.35, 1.262, "Veri kaynağında her bir oyuncu kendi ligi içerisinde, kendi pozisyonundaki oyuncular arasında değerlendirildiği\niçin farklı ligdeki veya farklı pozisyondaki oyuncuları karşılaştırırken bazı absürtlükler olabilir.",
+                    ha='left', va='center', fontsize=7, fontproperties=prop, color=to_rgba('gray', alpha=0.5), transform=ax2.transAxes)
+                    
                     table.scale(1, 2)
 
                     ax2.axis('off')
