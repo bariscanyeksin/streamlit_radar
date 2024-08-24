@@ -972,7 +972,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         <p style='font-size:12px; color:gray;'>
                             Bu radar grafiği, iki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılır.
                             Her eksen bir istatistiği temsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.
-                            Radarda oyuncuların kapladıkları alan, yüzdelik dilime göre her istatistikte oyuncunun sıralamasına göre çizilir.
+                            Radarda oyuncuların kapladıkları alan, yüzdelik dilime göre her istatistikte oyuncunun ligdeki/turnuvadaki sıralamasına göre çizilir.
                         </p>
                         <p style='font-size:12px; color:gray;'>
                             Oyuncular yalnızca mevcut seçili olan ligdeki/turnuvadaki aynı pozisyonda oynayan oyuncularla karşılaştırılır.
