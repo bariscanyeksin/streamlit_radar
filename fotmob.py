@@ -20,6 +20,18 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+st.markdown(
+    """
+    <style>
+        /* Sidebar içindeki tüm text input elementlerini hedef alma */
+        input[id^="text_input"] {
+            background-color: #242C3A !important;  /* Arka plan rengi */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 plt.rcParams['figure.dpi'] = 300
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -83,19 +95,6 @@ def fetch_players(search_term):
 # Kullanıcıdan iki oyuncu için arama terimlerini alma
 search_term1 = st.sidebar.text_input("Oyuncu 1 Arama", placeholder="Örneğin: Ferdi", help="Birinci oyuncunun ismini buraya girin.")
 search_term2 = st.sidebar.text_input("Oyuncu 2 Arama", placeholder="Örneğin: Osayi", help="İkinci oyuncunun ismini buraya girin.")
-
-# Apply the custom class to the input elements
-st.markdown(
-    """
-    <style>
-        /* Tüm sidebar text inputlarını hedef almak için */
-         input .st-bb {
-            background-color: #242C3A;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # Boş arama terimleri durumunda kullanıcıyı bilgilendirme
 if not search_term1.strip() and not search_term2.strip():
@@ -898,8 +897,8 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         /* Bilgisayarlar için */
                         @media (min-width: 1024px) {
                             .block-container {
-                                width: 800px;
-                                max-width: 800px;
+                                width: 900px;
+                                max-width: 900px;
                                 padding-top: 50px;
                                 padding-bottom: 0px;
                             }
