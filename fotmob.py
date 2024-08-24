@@ -844,14 +844,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
 
                                 except ValueError:
                                     pass
-
-                    # Radar bilgilerini ax2'ye ekleme
-                    ax2.text(-0.35, 1.35, "İki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılan bu radar grafiğinde her eksen bir istatistiği\ntemsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.",
-                    ha='left', va='center', fontsize=7, fontproperties=prop, color=to_rgba('gray', alpha=0.5), transform=ax2.transAxes)
-                    
-                    ax2.text(-0.35, 1.262, "Veri kaynağında her bir oyuncu kendi ligi içerisinde, kendi pozisyonundaki oyuncular arasında değerlendirildiği\niçin farklı ligdeki veya farklı pozisyondaki oyuncuları karşılaştırırken bazı absürtlükler olabilir.",
-                    ha='left', va='center', fontsize=7, fontproperties=prop, color=to_rgba('gray', alpha=0.5), transform=ax2.transAxes)
-                    
+                                    
                     table.scale(1, 2)
 
                     ax2.axis('off')
@@ -927,7 +920,24 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     data=buf,
                     file_name=f"{player1_name_clean}-{player1_season_name}-{player1_league_clean}-vs-{player2_name_clean}-{player2_season_name}-{player2_league_clean}.png",
                     mime="image/png"
-                )                
+                )
+                
+                # Bilgilendirme metinlerini div içinde ortalanmış olarak ayarlama
+                st.markdown(
+                    """
+                    <div style='text-align: center; margin-top: 30px; max-width:550px; margin: 0 auto; cursor:default'>
+                        <p style='font-size:12px; color:gray;'>
+                            Bu radar grafiği, iki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılır.
+                            Her eksen bir istatistiği temsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.
+                        </p>
+                        <p style='font-size:12px; color:gray;'>
+                            Veri kaynağında her bir oyuncu kendi ligi içerisinde, kendi pozisyonundaki oyuncular arasında değerlendirildiği
+                            için farklı ligdeki veya farklı pozisyondaki oyuncuları karşılaştırırken bazı absürtlükler olabilir.
+                        </p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
         else:
             st.write("Bir veya her iki oyuncunun verisi bulunamadı.")        
     else:
