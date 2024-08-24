@@ -84,6 +84,19 @@ def fetch_players(search_term):
 search_term1 = st.sidebar.text_input("Oyuncu 1 Arama", placeholder="Örneğin: Ferdi", help="Birinci oyuncunun ismini buraya girin.")
 search_term2 = st.sidebar.text_input("Oyuncu 2 Arama", placeholder="Örneğin: Osayi", help="İkinci oyuncunun ismini buraya girin.")
 
+# Apply the custom class to the input elements
+st.markdown(
+    """
+    <style>
+        /* Tüm sidebar text inputlarını hedef almak için */
+         input .st-bb {
+            background-color: #242C3A;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Boş arama terimleri durumunda kullanıcıyı bilgilendirme
 if not search_term1.strip() and not search_term2.strip():
     st.sidebar.warning("Her iki oyuncu ismi de boş. Lütfen arama terimlerini girin.")
@@ -438,6 +451,7 @@ def get_age(playerId):
     return None
 
 st.markdown("""
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
                     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -844,7 +858,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
 
                                 except ValueError:
                                     pass
-                                    
+
                     table.scale(1, 2)
 
                     ax2.axis('off')
@@ -881,6 +895,33 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 st.markdown(
                     """
                     <style>
+                        /* Bilgisayarlar için */
+                        @media (min-width: 1024px) {
+                            .block-container {
+                                width: 800px;
+                                max-width: 800px;
+                                padding-top: 50px;
+                                padding-bottom: 0px;
+                            }
+                        }
+
+                        /* Tabletler için (genellikle 768px - 1024px arası ekran genişliği) */
+                        @media (min-width: 768px) and (max-width: 1023px) {
+                            .block-container.st-emotion-cache-13ln4jf.ea3mdgi5 {
+                                width: 700px;
+                                max-width: 700px;
+                            }
+                        }
+
+                        /* Telefonlar için (genellikle 768px ve altı ekran genişliği) */
+                        @media (max-width: 767px) {
+                            .block-container.st-emotion-cache-13ln4jf.ea3mdgi5 {
+                                width: 100%;
+                                max-width: 100%;
+                                padding-left: 10px;
+                                padding-right: 10px;
+                            }
+                        }
                         .row-widget.stDownloadButton {
                             display: flex;
                             justify-content: center;
@@ -921,7 +962,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     file_name=f"{player1_name_clean}-{player1_season_name}-{player1_league_clean}-vs-{player2_name_clean}-{player2_season_name}-{player2_league_clean}.png",
                     mime="image/png"
                 )
-
+                
                 # Daha fazla boşluk bırakmak için ek boşluk ekleyin
                 st.markdown("<br>", unsafe_allow_html=True)
                 
@@ -932,10 +973,11 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                         <p style='font-size:12px; color:gray;'>
                             Bu radar grafiği, iki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılır.
                             Her eksen bir istatistiği temsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.
+                            Radarda oyuncuların kapladıkları alan, yüzdelik dilime göre her istatistikte oyuncunun sıralamasına göre çizilir.
                         </p>
                         <p style='font-size:12px; color:gray;'>
-                            Veri kaynağında her bir oyuncu kendi ligi içerisinde, kendi pozisyonundaki oyuncular arasında değerlendirildiği
-                            için farklı ligdeki veya farklı pozisyondaki oyuncuları karşılaştırırken bazı absürtlükler olabilir.
+                            Oyuncular yalnızca mevcut seçili olan ligdeki/turnuvadaki aynı pozisyonda oynayan oyuncularla karşılaştırılır.
+                            Bu sebeple farklı ligdeki/turnuvadaki veya farklı pozisyondaki oyuncuları karşılaştırırken bazı absürtlükler olabilir.
                         </p>
                     </div>
                     """,
