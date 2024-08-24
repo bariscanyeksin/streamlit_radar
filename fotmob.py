@@ -925,7 +925,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 # Bilgilendirme metinlerini div içinde ortalanmış olarak ayarlama
                 st.markdown(
                     """
-                    <div style='text-align: center; margin-top: 30px; max-width:550px; margin: 0 auto; cursor:default'>
+                    <div style='text-align: center; margin-top: 50px; max-width:550px; margin: 0 auto; cursor:default'>
                         <p style='font-size:12px; color:gray;'>
                             Bu radar grafiği, iki oyuncunun belirli istatistiklerini karşılaştırmak için kullanılır.
                             Her eksen bir istatistiği temsil eder ve oyuncuların bu istatistiklerdeki performansını gösterir.
