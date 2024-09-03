@@ -16,7 +16,7 @@ import base64
 import os
 
 st.set_page_config(
-    page_title="FotMob Radar",
+    page_title="Oyuncu Karşılaştırma",
     initial_sidebar_state="expanded"
 )
 
