@@ -280,21 +280,6 @@ def get_player_name(player_id):
     name = data["name"]
     return name
 
-def get_last_shot_team_id(player_data):
-    # Shotmap listesindeki son şutu al
-    if player_data != None:
-        if 'shotmap' in player_data:
-            if player_data['shotmap'] != None:
-                last_shot = player_data['shotmap'][-1]
-                # Son şutun teamId değerini döndür
-                return last_shot['teamId']
-            else:
-                return 0
-        else:
-            return 0
-    else:
-        return 0
-
 def get_minutes(player_data, specific_stat_name):
     items = player_data['topStatCard']['items']
     
@@ -360,44 +345,6 @@ def fetch_player_season_and_league(player_id, season_id):
 
     return season_text, league_name
 
-def get_team_name(teamId):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(teamId)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/teams', params=params, headers=headers)
-    data = response.json()
-    teamName = data['details']['name']
-    return teamName
-
-def get_current_team_name(playerId):
-    headers = {
-    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-    'Referer': f'https://www.fotmob.com/players/{playerId}',
-    'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-    'sec-ch-ua-mobile': '?0',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-    'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(playerId)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
-    data = response.json()
-    if data["primaryTeam"] != None:
-        return data["primaryTeam"]["teamName"]
-    else:
-        return "-"
-
 def get_birthday(playerId):
     headers = {
     'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
@@ -448,6 +395,24 @@ def get_age(playerId):
     
     # Yaş bulunamazsa None döndür
     return None
+
+# Oyuncu sezon bilgilerini çeken fonksiyon
+def get_player_general_data(player_id):
+    headers = {
+        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'Referer': f'https://www.fotmob.com/players/{player_id}',
+        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
+        'sec-ch-ua-mobile': '?0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'sec-ch-ua-platform': '"Windows"',
+    }
+    params = {
+        'id': str(player_id)
+    }
+
+    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
+    data = response.json()
+    return data
 
 st.markdown("""
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -555,30 +520,14 @@ if int(player1_id) > 0 and int(player2_id) > 0:
 
     player1_data = fetch_player_data(int(player1_id), player1_season_id)
     player2_data = fetch_player_data(int(player2_id), player2_season_id)
-
-    player1_team_id = get_last_shot_team_id(player1_data)
-    player2_team_id = get_last_shot_team_id(player2_data)
-
-    if player1_team_id == 0 and player2_team_id != 0:
-        player1_team = get_current_team_name(player1_id)
-        player2_team = get_team_name(player2_team_id)
-
-    elif player1_team_id != 0 and player2_team_id == 0:
-        player1_team = get_team_name(player1_team_id)
-        player2_team = get_current_team_name(player2_id)
-
-    elif player1_team_id != 0 and player1_team_id != 0:
-        player1_team = get_team_name(player1_team_id)
-        player2_team = get_team_name(player2_team_id)
-
-    elif player1_team_id == 0 and player1_team_id == 0:
-        player1_team = get_current_team_name(player1_id)
-        player2_team = get_current_team_name(player2_id)
     
     if (player1_data and player2_data is not None):
 
         player1_df = create_player_df(player1_data)
         player2_df = create_player_df(player2_data)
+        
+        player1_general_data = get_player_general_data(player1_id)
+        player2_general_data = get_player_general_data(player2_id)
         
         if (len(player1_df) >= 15) and (len(player2_df) >= 15):
 
@@ -607,6 +556,42 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 
                 player1_season_name, player1_league = fetch_player_season_and_league(player1_id, player1_season_id)
                 player2_season_name, player2_league = fetch_player_season_and_league(player2_id, player2_season_id)
+                
+                def get_team_name_from_season_and_league(data, season_string, league_string):
+                    def season_matches(season_name, season_string):
+                        season_parts = season_name.split('/')
+                        # Eğer season_string '/' içeriyorsa, sezon parçalarının herhangi biriyle eşleşiyor mu kontrol et
+                        if '/' in season_string:
+                            for part in season_parts:
+                                if part.strip() in season_string.split('/'):
+                                    return True
+                        # Eğer season_string '/' içermiyorsa, tam eşleşme kontrolü yap
+                        else:
+                            if season_string in season_parts or season_name == season_string:
+                                return True
+                        return False
+
+                    # "senior" altında normal arama yap
+                    if 'senior' in data['careerHistory']['careerItems']:
+                        for season in data['careerHistory']['careerItems']['senior']['seasonEntries']:
+                            if season['seasonName'] == season_string:
+                                for tournament in season['tournamentStats']:
+                                    if tournament['leagueName'] == league_string:
+                                        return season['team']
+                    
+                    # Eğer "senior" altında bulunamazsa, "national team" altında esnek arama yap
+                    if 'national team' in data['careerHistory']['careerItems']:
+                        for season in data['careerHistory']['careerItems']['national team']['seasonEntries']:
+                            if season_matches(season['seasonName'], season_string):
+                                for tournament in season['tournamentStats']:
+                                    if tournament['leagueName'] == league_string:
+                                        return season['team']
+                    
+                    return None
+
+                # Fonksiyonun kullanımı
+                player1_team = get_team_name_from_season_and_league(player1_general_data, player1_season_name, player1_league)
+                player2_team = get_team_name_from_season_and_league(player2_general_data, player2_season_name, player2_league)
 
                 def create_radar_chart(stat_titles, df1_values_percentage, df2_values_percentage,
                                     df1_stat_values, df2_stat_values,
