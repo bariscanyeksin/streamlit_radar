@@ -451,6 +451,8 @@ if int(player1_id) > 0 and int(player2_id) > 0:
         "Right Back": "Sağ Bek",
         "Left Back": "Sol Bek",
         "Center Back": "Stoper",
+        "Right Wing-Back": "Sağ Kanat Bek",
+        "Left Wing-Back": "Sol Kanat Bek",
         "Right Midfielder": "Sağ Orta Saha",
         "Left Midfielder": "Sol Orta Saha",
         "Central Midfielder": "Merkez Orta Saha",
@@ -476,11 +478,11 @@ if int(player1_id) > 0 and int(player2_id) > 0:
         selectbox_index = 0
     if player1_primary_position == "Center Back":
         selectbox_index = 1
-    if player1_primary_position == "Left Back" or player1_primary_position == "Right Back":
+    if player1_primary_position == "Left Back" or player1_primary_position == "Right Back" or player1_primary_position == "Right Wing-Back" or player1_primary_position == "Left Wing-Back":
         selectbox_index = 2
     if player1_primary_position == "Defensive Midfielder" or player1_primary_position == "Central Midfielder":
         selectbox_index = 3
-    if player1_primary_position == "Left Winger" or player1_primary_position == "Right Winger" or player1_primary_position == "Attacking Midfielder":
+    if player1_primary_position == "Left Winger" or player1_primary_position == "Right Winger" or player1_primary_position == "Attacking Midfielder" or player1_primary_position == "Right Midfielder" or player1_primary_position == "Left Midfielder":
         selectbox_index = 4
     if player1_primary_position == "Striker":
         selectbox_index = 5
