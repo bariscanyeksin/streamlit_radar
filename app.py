@@ -48,6 +48,46 @@ ssl._create_default_https_context = ssl._create_unverified_context
 player1_id = 0
 player2_id = 0
 
+def headers(player_id):
+    headers = {
+        'accept': '*/*',
+        'accept-language': 'tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7',
+        'cache-control': 'no-cache',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': f'https://www.fotmob.com/en-GB/players/{player_id}/',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'x-mas': 'eyJib2R5Ijp7InVybCI6Ii9hcGkvcGxheWVyRGF0YT9pZD0xMDkyMDE1IiwiY29kZSI6MTczMzIyNDA3NjgxOSwiZm9vIjoiNGJkMDI2ODk4In0sInNpZ25hdHVyZSI6IkFFMDUwMEY0NTY1MTU2OUUwQjJBNDlENjdGM0ZBQkI4In0='
+    }
+    
+    return headers
+
+def headers_season_stats(player_id):
+    headers = {
+        'accept': '*/*',
+        'accept-language': 'tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7',
+        'cache-control': 'no-cache',
+        'pragma': 'no-cache',
+        'priority': 'u=1, i',
+        'referer': f'https://www.fotmob.com/en-GB/players/{player_id}/',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'x-mas': 'eyJib2R5Ijp7InVybCI6Ii9hcGkvcGxheWVyU3RhdHM/cGxheWVySWQ9MTA5MjAxNSZzZWFzb25JZD0xLTAmaXNGaXJzdFNlYXNvbj1mYWxzZSIsImNvZGUiOjE3MzMyMjYwNTYxNDMsImZvbyI6IjRiZDAyNjg5OCJ9LCJzaWduYXR1cmUiOiJCOTNBREU4QkUwNzJCMjZBRTExQTg3ODYyOTNFOTRBNiJ9',
+    }
+    
+    return headers
+
 def fetch_players(search_term):
     if not search_term.strip():
         return {}
@@ -65,7 +105,7 @@ def fetch_players(search_term):
         'sec-fetch-mode': 'cors',
         'sec-fetch-site': 'same-origin',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjM5ODgxMDg3OTB9LCJzaWduYXR1cmUiOiIxMDY3ODRDNkZGRjg1MUJCN0REOTc5RDg5QzdBMUUzMCJ9',
+        'x-mas': 'eyJib2R5Ijp7InVybCI6Ii9hcGkvcGxheWVyRGF0YT9pZD0xMDkyMDE1IiwiY29kZSI6MTczMzIyNDA3NjgxOSwiZm9vIjoiNGJkMDI2ODk4In0sInNpZ25hdHVyZSI6IkFFMDUwMEY0NTY1MTU2OUUwQjJBNDlENjdGM0ZBQkI4In0='
     }
 
     params = {
@@ -87,16 +127,12 @@ def fetch_players(search_term):
         return {}
 
     suggestions = data[0]['suggestions']
-    
     player_options = {f"{player['name']} ({player['teamName']})": player['id'] for player in suggestions if player['type'] == 'player'}
-    
     return player_options
 
-# Kullanıcıdan iki oyuncu için arama terimlerini alma
 search_term1 = st.sidebar.text_input("Oyuncu 1 Arama", placeholder="Örneğin: Ferdi", help="Birinci oyuncunun ismini buraya girin.")
 search_term2 = st.sidebar.text_input("Oyuncu 2 Arama", placeholder="Örneğin: Osayi", help="İkinci oyuncunun ismini buraya girin.")
 
-# Boş arama terimleri durumunda kullanıcıyı bilgilendirme
 if not search_term1.strip() and not search_term2.strip():
     st.sidebar.warning("Her iki oyuncu ismi de boş. Lütfen arama terimlerini girin.")
 elif not search_term1.strip():
@@ -104,11 +140,9 @@ elif not search_term1.strip():
 elif not search_term2.strip():
     st.sidebar.warning("Oyuncu 2 ismi boş. Lütfen arama terimini girin.")
 else:
-    # Her iki oyuncu için de verileri çekme
     players1 = fetch_players(search_term1)
     players2 = fetch_players(search_term2)
 
-    # Oyuncu 1 ve Oyuncu 2 seçimleri için seçeneklerin birleştirilmesi
     if players1 and players2:
         all_players_1 = {**players1}
         all_players_2 = {**players2}
@@ -120,25 +154,11 @@ else:
     else:
         st.sidebar.write("Aramanızla eşleşen oyuncu bulunamadı.")
         
-# Oyuncu sezon bilgilerini çeken fonksiyon
 def get_player_season_infos(player_id):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/players/{player_id}',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(player_id)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
+    response = requests.get(f'https://www.fotmob.com/api/playerData?id={player_id}', headers=headers(player_id))
     data = response.json()
     return data["statSeasons"]
 
-# Kullanıcıya sezon ve ligleri göster ve entryId'yi seçtir
 def select_season_and_league(player_seasons, player_num):
     options = []
     option_to_entryid = {}
@@ -155,21 +175,8 @@ def select_season_and_league(player_seasons, player_num):
     return option_to_entryid[selected_option]
 
 def get_player_primary_position(player_id):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/players/{player_id}',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(player_id)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
+    response = requests.get(f'https://www.fotmob.com/api/playerData?id={player_id}', headers=headers(player_id))
     data = response.json()
-
     primary_position = data.get('positionDescription', {}).get('primaryPosition', {}).get('label')
     return primary_position
     
@@ -212,44 +219,27 @@ translation_dict = {
 def translate_stats(stat_titles, translation_dict):
     return [translation_dict.get(stat, stat) for stat in stat_titles]
 
-# Oyuncu verilerini çekme fonksiyonu
-def fetch_player_data(player_id, season_id):
-    headers = {
-        'accept': '*/*',
-        'accept-language': 'tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7',
-        'priority': 'u=1, i',
-        'referer': 'https://www.fotmob.com/tr/players/' + str(player_id),
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-    }
-    params = {'playerId': str(player_id), 'seasonId': str(season_id)}
-    response = requests.get('https://www.fotmob.com/api/playerStats', params=params, headers=headers)
+def fetch_player_stats(player_id, season_id):
+    response = requests.get(f'https://www.fotmob.com/api/playerStats?playerId={player_id}&seasonId={season_id}', headers=headers_season_stats(player_id))
     response.raise_for_status()
     return response.json()
 
-# DataFrame oluşturma fonksiyonu
 def create_player_df(player_data):  
     if 'statsSection' not in player_data:
-        return pd.DataFrame()  # Boş bir DataFrame döndürüyoruz
+        return pd.DataFrame()
     
     top_stats = player_data['statsSection']['items']
     dfs = [pd.DataFrame(stat['items']).assign(category=stat['title']) for stat in top_stats]
     return pd.concat(dfs, ignore_index=True)
 
-# İstatistik değerlerini çıkarma fonksiyonu
 def extract_stat_values(df, stat_titles):
     stat_values = []
     for title in stat_titles:
         value = df.loc[df['title'] == title, 'per90'].values
         if len(value) > 0:
-            stat_values.append(round(value[0], 2))  # Yuvarlama işlemi
+            stat_values.append(round(value[0], 2))
         else:
-            stat_values.append(0)  # Eğer başlık yoksa 0 ekle
+            stat_values.append(0)
     return stat_values
 
 def extract_stat_values_percentage(df, stat_titles):
@@ -257,25 +247,13 @@ def extract_stat_values_percentage(df, stat_titles):
     for title in stat_titles:
         value = df.loc[df['title'] == title, 'percentileRankPer90'].values
         if len(value) > 0:
-            stat_values.append(round(value[0], 2))  # Yuvarlama işlemi
+            stat_values.append(round(value[0], 2))
         else:
-            stat_values.append(0)  # Eğer başlık yoksa 0 ekle
+            stat_values.append(0)
     return stat_values
 
 def get_player_name(player_id):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/players/{player_id}',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(player_id)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
+    response = requests.get(f'https://www.fotmob.com/api/playerData?id={player_id}', headers=headers(player_id))
     data = response.json()
     name = data["name"]
     return name
@@ -283,7 +261,6 @@ def get_player_name(player_id):
 def get_minutes(player_data, specific_stat_name):
     items = player_data['topStatCard']['items']
     
-    # Belirli bir istatistik adını arayın
     for item in items:
         if item.get('title') == specific_stat_name:
             return item.get('statValue')
@@ -293,7 +270,6 @@ def get_minutes(player_data, specific_stat_name):
 def get_matches_count(player_data, specific_stat_name):
     items = player_data['topStatCard']['items']
     
-    # Belirli bir istatistik adını arayın
     for item in items:
         if item.get('title') == specific_stat_name:
             return item.get('statValue')
@@ -303,30 +279,13 @@ def get_matches_count(player_data, specific_stat_name):
 def get_started_matches_count(player_data, specific_stat_name):
     items = player_data['topStatCard']['items']
     
-    # Belirli bir istatistik adını arayın
     for item in items:
         if item.get('title') == specific_stat_name:
             return item.get('statValue')
     
     return None
 
-def fetch_player_season_and_league(player_id, season_id):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/players/{player_id}',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(player_id)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
-    data = response.json()
-
-    # Sezon bilgilerini içeren yapı
+def fetch_player_season_and_league(data, season_id):
     stat_seasons = data.get('statSeasons', [])
     
     season_text = None
@@ -337,80 +296,33 @@ def fetch_player_season_and_league(player_id, season_id):
         for tournament in tournaments:
             entry_id = tournament.get('entryId')
             if entry_id == season_id:
-                season_text = season.get('seasonName')  # Sezon tarihi
-                league_name = tournament.get('name')  # Lig adı
+                season_text = season.get('seasonName')
+                league_name = tournament.get('name')
                 break
         if season_text and league_name:
             break
 
     return season_text, league_name
 
-def get_birthday(playerId):
-    headers = {
-    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-    'Referer': f'https://www.fotmob.com/players/{playerId}',
-    'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-    'sec-ch-ua-mobile': '?0',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-    'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(playerId)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
-    data = response.json()
+def get_birthday(data):
     birthday = data["birthDate"]["utcTime"]
 
-    # Tarihi datetime nesnesine dönüştür
     date_obj = datetime.fromisoformat(birthday.replace("Z", "+00:00"))
 
-    # Yeni formata çevir
     formatted_date = date_obj.strftime("%d.%m.%Y")
     return formatted_date
 
-def get_age(playerId):
-    headers = {
-    'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-    'Referer': f'https://www.fotmob.com/players/{playerId}',
-    'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-    'sec-ch-ua-mobile': '?0',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-    'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(playerId)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
-    data = response.json()
-    # playerInformation listesini al
+def get_age(data):
     player_information = data.get('playerInformation', [])
     
-    # Yaşı bulmak için döngü
     for item in player_information:
         if item.get('title') == 'Age':
-            # Yaş bilgisini döndür
             return item['value'].get('numberValue')
     
-    # Yaş bulunamazsa None döndür
     return None
 
-# Oyuncu sezon bilgilerini çeken fonksiyon
 def get_player_general_data(player_id):
-    headers = {
-        'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Referer': f'https://www.fotmob.com/players/{player_id}',
-        'x-fm-req': 'eyJib2R5Ijp7ImNvZGUiOjE3MjExMjU1NTE2NDh9LCJzaWduYXR1cmUiOiI3MEJDRDc3MDRCMjRGQzI5NEQ3Mzc5N0IyMTE5N0FDOSJ9',
-        'sec-ch-ua-mobile': '?0',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'sec-ch-ua-platform': '"Windows"',
-    }
-    params = {
-        'id': str(player_id)
-    }
-
-    response = requests.get('https://www.fotmob.com/api/playerData', params=params, headers=headers)
+    response = requests.get(f'https://www.fotmob.com/api/playerData?id={player_id}', headers=headers(player_id))
     data = response.json()
     return data
 
@@ -520,30 +432,30 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     'xA', 'Chances created',
                     'Duels won', 'Duels won %', 'Aerials won', 'Aerials won %', 'Possession won final 3rd', 'Fouls won']
 
-    player1_data = fetch_player_data(int(player1_id), player1_season_id)
-    player2_data = fetch_player_data(int(player2_id), player2_season_id)
+    player1_stats = fetch_player_stats(int(player1_id), player1_season_id)
+    player2_stats = fetch_player_stats(int(player2_id), player2_season_id)
     
-    if (player1_data and player2_data is not None):
+    if (player1_stats and player2_stats is not None):
 
-        player1_df = create_player_df(player1_data)
-        player2_df = create_player_df(player2_data)
+        player1_df = create_player_df(player1_stats)
+        player2_df = create_player_df(player2_stats)
         
         player1_general_data = get_player_general_data(player1_id)
         player2_general_data = get_player_general_data(player2_id)
         
         if (len(player1_df) >= 15) and (len(player2_df) >= 15):
 
-            player1_age = get_age(player1_id)
-            player2_age = get_age(player2_id)
+            player1_age = get_age(player1_general_data)
+            player2_age = get_age(player2_general_data)
 
-            player1_birthday = get_birthday(player1_id)
-            player2_birthday = get_birthday(player2_id)
+            player1_birthday = get_birthday(player1_general_data)
+            player2_birthday = get_birthday(player2_general_data)
 
-            player1_matches = get_matches_count(player1_data, 'Matches')
-            player2_matches = get_matches_count(player2_data, 'Matches')
+            player1_matches = get_matches_count(player1_stats, 'Matches')
+            player2_matches = get_matches_count(player2_stats, 'Matches')
 
-            player1_started_matches = get_started_matches_count(player1_data, 'Started')
-            player2_started_matches = get_started_matches_count(player2_data, 'Started')
+            player1_started_matches = get_started_matches_count(player1_stats, 'Started')
+            player2_started_matches = get_started_matches_count(player2_stats, 'Started')
         
             # player1_df ve player2_df'in boş olup olmadığını kontrol et
             player1_bos_mu = player1_df.empty or isinstance(player1_df, pd.DataFrame) and player1_df.shape == (0, 0)
@@ -556,8 +468,8 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                 df1_stat_values_percentage = extract_stat_values_percentage(player1_df, stat_titles)
                 df2_stat_values_percentage = extract_stat_values_percentage(player2_df, stat_titles)
                 
-                player1_season_name, player1_league = fetch_player_season_and_league(player1_id, player1_season_id)
-                player2_season_name, player2_league = fetch_player_season_and_league(player2_id, player2_season_id)
+                player1_season_name, player1_league = fetch_player_season_and_league(player1_general_data, player1_season_id)
+                player2_season_name, player2_league = fetch_player_season_and_league(player2_general_data, player2_season_id)
                 
                 def get_team_name_from_season_and_league(data, season_string, league_string):
                     def season_matches(season_name, season_string):
@@ -601,8 +513,8 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     player1_color = "#3a879e"
                     player2_color = "#a32f2f"
 
-                    player1_minute = get_minutes(player1_data, 'Minutes')
-                    player2_minute = get_minutes(player2_data, 'Minutes')
+                    player1_minute = get_minutes(player1_stats, 'Minutes')
+                    player2_minute = get_minutes(player2_stats, 'Minutes')
 
                     player1_90s = 0.0
                     player2_90s = 0.0
