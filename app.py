@@ -74,7 +74,7 @@ def get_version_number():
     
     response = requests.get("https://www.fotmob.com/", headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
-    version_element = soup.find('span', class_='css-8r54ra-VersionNumber etklkqa0')
+    version_element = soup.find('span', class_=lambda cls: cls and 'VersionNumber' in cls)
     if version_element:
         return version_element.text.strip()
     else:
