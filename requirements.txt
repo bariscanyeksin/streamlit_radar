@@ -4,3 +4,4 @@ numpy
 Pillow
 streamlit
 requests
+bs4
