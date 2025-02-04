@@ -202,8 +202,8 @@ def fetch_players(search_term):
     player_options = {f"{player['name']} ({player['teamName']})": player['id'] for player in suggestions if player['type'] == 'player'}
     return player_options
 
-search_term1 = st.sidebar.text_input("Oyuncu 1 Arama", placeholder="Örneğin: Ferdi", help="Birinci oyuncunun ismini buraya girin.")
-search_term2 = st.sidebar.text_input("Oyuncu 2 Arama", placeholder="Örneğin: Osayi", help="İkinci oyuncunun ismini buraya girin.")
+search_term1 = st.sidebar.text_input("Oyuncu 1 Arama", placeholder="Örneğin: En-Nesyri", help="Birinci oyuncunun ismini buraya girin.")
+search_term2 = st.sidebar.text_input("Oyuncu 2 Arama", placeholder="Örneğin: Osimhen", help="İkinci oyuncunun ismini buraya girin.")
 
 if not search_term1.strip() and not search_term2.strip():
     st.sidebar.warning("Her iki oyuncu ismi de boş. Lütfen arama terimlerini girin.")
@@ -280,8 +280,10 @@ translation_dict = {
     'Possession won final 3rd': 'Rakip Alanda Top Çalma',
     'Fouls committed': 'Yapılan Faul',
     'Fouls won': 'Kazanılan Faul',
+    'Goals': 'Gol',
     'xG': 'Gol Beklentisi (xG)',
     'xGOT': 'İsabetli Şutta xG (xGOT)',
+    'xG excl. penalty': 'Penaltısız Gol Beklentisi (xGnP)',
     'Shots': 'Şut',
     'Shots on target': 'İsabetli Şut',
     'xA': 'Asist Beklentisi (xA)',
@@ -500,7 +502,7 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     'Dribbles', 'Dribbles success rate']
         
     if (radar_template == "Santrafor"):
-        stat_titles = ['xG', 'xGOT', 'Shots', 'Shots on target',
+        stat_titles = ['Goals', 'xG excl. penalty', 'Shots', 'Shots on target',
                     'xA', 'Chances created',
                     'Duels won', 'Duels won %', 'Aerials won', 'Aerials won %', 'Possession won final 3rd', 'Fouls won']
 
