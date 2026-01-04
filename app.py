@@ -318,7 +318,7 @@ def extract_stat_values(df, stat_titles):
 def extract_stat_values_percentage(df, stat_titles):
     stat_values = []
     for title in stat_titles:
-        value = df.loc[df['title'] == title, 'percentileRankPer90'].values
+        value = df.loc[df['title'] == title, 'percentileRank'].values
         if len(value) > 0:
             stat_values.append(round(value[0], 2))
         else:
@@ -1017,4 +1017,5 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
