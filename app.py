@@ -258,7 +258,7 @@ translation_dict = {
     'Duels won %': 'Kazanılan İkili Mücadele Yüzdesi',
     'Aerials won': 'Kazanılan Hava Topu',
     'Aerials won %': 'Kazanılan Hava Topu Yüzdesi',
-    'Interceptions': 'Top Kapma',
+    'Interceptions': 'Pas Arası',
     'Recoveries': 'Top Kazanma',
     'Accurate passes': 'Başarılı Pas',
     'Pass accuracy': 'Başarılı Pas Yüzdesi',
@@ -1017,5 +1017,6 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
