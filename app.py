@@ -253,8 +253,7 @@ def get_player_primary_position(player_id):
     return primary_position
     
 translation_dict = {
-    'Tackles won': 'Başarılı Top Çalma',
-    'Tackles won %': 'Başarılı Top Çalma Yüzdesi',
+    'Tackles': 'Top Çalma',
     'Duels won': 'Kazanılan İkili Mücadele',
     'Duels won %': 'Kazanılan İkili Mücadele Yüzdesi',
     'Aerials won': 'Kazanılan Hava Topu',
@@ -482,17 +481,17 @@ if int(player1_id) > 0 and int(player2_id) > 0:
                     "Pass accuracy", "Accurate long balls", "Long ball accuracy"]
 
     if (radar_template == "Stoper"):
-        stat_titles = ['Tackles won', 'Tackles won %', 'Duels won', 'Duels won %', 'Interceptions', 'Recoveries', 'Blocked scoring attempt',
+        stat_titles = ['Tackles', 'Duels won', 'Duels won %', 'Interceptions', 'Recoveries', 'Blocked scoring attempt',
                     'Accurate passes', 'Accurate long balls',  'Long ball accuracy']
 
     if (radar_template == "Sağ Bek - Sol Bek"):
-        stat_titles = ['Tackles won', 'Duels won', 'Duels won %', 'Interceptions', 'Recoveries',
+        stat_titles = ['Tackles', 'Duels won', 'Duels won %', 'Interceptions', 'Recoveries',
                     'Accurate passes', 'Chances created', 'Successful crosses', 'Cross accuracy',
                     'Dribbles', 'Touches in opposition box']
         
     if (radar_template == "Merkez Orta Saha"):
         stat_titles = ['Accurate passes', 'Pass accuracy', 'Accurate long balls', 'Long ball accuracy',
-                    'Tackles won', 'Interceptions', 'Recoveries', 'Duels won', 'Aerials won', 'Possession won final 3rd',
+                    'Tackles', 'Interceptions', 'Recoveries', 'Duels won', 'Aerials won', 'Possession won final 3rd',
                     'Touches', 'Dribbles']
         
     if (radar_template == "Kanat - Ofansif Orta Saha"):
@@ -1018,3 +1017,4 @@ st.sidebar.markdown(
     """,
     unsafe_allow_html=True
 )
+
