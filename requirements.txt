@@ -2,6 +2,6 @@ pandas
 matplotlib
 numpy
 Pillow
-streamlit
+streamlit>=1.52.0
 requests
 bs4
